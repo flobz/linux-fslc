@@ -2343,16 +2343,10 @@ static int fsl_micfil_probe(struct platform_device *pdev)
 	pm_runtime_enable(&pdev->dev);
 	regcache_cache_only(micfil->regmap, true);
 
-	fsl_micfil_dai.capture.formats = micfil->soc->formats;
-
-	ret = devm_snd_soc_register_component(&pdev->dev, &fsl_micfil_component,
-					      &fsl_micfil_dai, 1);
-	if (ret) {
-		dev_err(&pdev->dev, "failed to register component %s\n",
-			fsl_micfil_component.name);
-		return ret;
-	}
-
+	/*
+	 * Register platform component before registering cpu dai for there
+	 * is not defer probe for platform component in snd_soc_add_pcm_runtime().
+	 */
 	if (micfil->soc->imx)
 		ret = imx_pcm_platform_register(&pdev->dev);
 	else
@@ -2361,6 +2355,15 @@ static int fsl_micfil_probe(struct platform_device *pdev)
 	if (ret) {
 		dev_err(&pdev->dev, "failed to pcm register\n");
 		return ret;
+	}
+
+	fsl_micfil_dai.capture.formats = micfil->soc->formats;
+
+	ret = devm_snd_soc_register_component(&pdev->dev, &fsl_micfil_component,
+					      &fsl_micfil_dai, 1);
+	if (ret) {
+		dev_err(&pdev->dev, "failed to register component %s\n",
+			fsl_micfil_component.name);
 	}
 
 	/* create sysfs entry used to enable hwvad from userspace */
