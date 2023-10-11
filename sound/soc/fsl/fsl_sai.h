@@ -91,6 +91,7 @@
 /* SAI Transmit/Receive Control Register */
 #define FSL_SAI_CSR_TERE	BIT(31)
 #define FSL_SAI_CSR_SE		BIT(30)
+#define FSL_SAI_CSR_BCE		BIT(28)
 #define FSL_SAI_CSR_FR		BIT(25)
 #define FSL_SAI_CSR_SR		BIT(24)
 #define FSL_SAI_CSR_xF_SHIFT	16
@@ -159,6 +160,43 @@
 #define FSL_SAI_CR5_W0W_MASK	(0x1f << 16)
 #define FSL_SAI_CR5_FBT(x)	((x) << 8)
 #define FSL_SAI_CR5_FBT_MASK	(0x1f << 8)
+
+/* SAI MCLK Control Register */
+#define FSL_SAI_MCTL_MCLK_EN	BIT(30)	/* MCLK Enable */
+#define FSL_SAI_MCTL_MSEL_MASK	(0x3 << 24)
+#define FSL_SAI_MCTL_MSEL(ID)   ((ID) << 24)
+#define FSL_SAI_MCTL_MSEL_BUS	0
+#define FSL_SAI_MCTL_MSEL_MCLK1	BIT(24)
+#define FSL_SAI_MCTL_MSEL_MCLK2	BIT(25)
+#define FSL_SAI_MCTL_MSEL_MCLK3	(BIT(24) | BIT(25))
+#define FSL_SAI_MCTL_DIV_EN	BIT(23)
+#define FSL_SAI_MCTL_DIV_MASK	0xFF
+
+/* SAI VERID Register */
+#define FSL_SAI_VERID_MAJOR_SHIFT   24
+#define FSL_SAI_VERID_MAJOR_MASK    GENMASK(31, 24)
+#define FSL_SAI_VERID_MINOR_SHIFT   16
+#define FSL_SAI_VERID_MINOR_MASK    GENMASK(23, 16)
+#define FSL_SAI_VERID_FEATURE_SHIFT 0
+#define FSL_SAI_VERID_FEATURE_MASK  GENMASK(15, 0)
+#define FSL_SAI_VERID_EFIFO_EN	    BIT(0)
+#define FSL_SAI_VERID_TSTMP_EN	    BIT(1)
+
+/* SAI PARAM Register */
+#define FSL_SAI_PARAM_SPF_SHIFT	    16
+#define FSL_SAI_PARAM_SPF_MASK	    GENMASK(19, 16)
+#define FSL_SAI_PARAM_WPF_SHIFT	    8
+#define FSL_SAI_PARAM_WPF_MASK	    GENMASK(11, 8)
+#define FSL_SAI_PARAM_DLN_MASK	    GENMASK(3, 0)
+
+/* SAI MCLK Divide Register */
+#define FSL_SAI_MDIV_MASK	    0xFFFFF
+
+/* SAI timestamp and bitcounter */
+#define FSL_SAI_xTCTL_TSEN         BIT(0)
+#define FSL_SAI_xTCTL_TSINC        BIT(1)
+#define FSL_SAI_xTCTL_RTSC         BIT(8)
+#define FSL_SAI_xTCTL_RBC          BIT(9)
 
 /* SAI MCLK Control Register */
 #define FSL_SAI_MCTL_MCLK_EN	BIT(30)	/* MCLK Enable */

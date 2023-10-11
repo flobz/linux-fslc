@@ -208,7 +208,7 @@ struct hw_bank {
  * @in_lpm: if the core in low power mode
  * @wakeup_int: if wakeup interrupt occur
  * @rev: The revision number for controller
- * @mutex: protect code from concorrent running
+ * @mutex: protect code from concorrent running when doing role switch
  * @power_lost_work: work item when controller power is lost
  * @power_lost_wq: work queue for controller power is lost
  */
